@@ -6,5 +6,5 @@ public interface TypeAdapter<T> {
 
     T read(YamlNode node) throws TypeAdaptationException;
 
-    YamlNode write(T value);
+    YamlNode write(T value) throws TypeAdaptationException;
 }
