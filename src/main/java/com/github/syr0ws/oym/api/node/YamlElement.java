@@ -19,12 +19,28 @@ public class YamlElement extends AbstractNode {
         return (int) this.object;
     }
 
+    public double asDouble() {
+        return (double) this.object;
+    }
+
+    public long asLong() {
+        return (long) this.object;
+    }
+
     public boolean isString() {
         return this.object instanceof String;
     }
 
     public boolean isInt() {
         return this.object instanceof Integer;
+    }
+
+    public boolean isDouble() {
+        return this.object instanceof Double;
+    }
+
+    public boolean isLong() {
+        return this.object instanceof Long;
     }
 
     public Object get() {
