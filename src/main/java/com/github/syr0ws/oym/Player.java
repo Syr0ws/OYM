@@ -19,6 +19,9 @@ public class Player {
     @Key
     private Map<String, String> test;
 
+    @Key
+    private Double score;
+
     @KeySetter(field = "name")
     public void setName(String name) {
         System.out.println(name);
