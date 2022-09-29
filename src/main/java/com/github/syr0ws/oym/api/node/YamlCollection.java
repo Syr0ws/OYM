@@ -25,6 +25,11 @@ public class YamlCollection implements YamlNode, Iterable<YamlNode> {
         return true;
     }
 
+    @Override
+    public Object get() {
+        return this.getNodes();
+    }
+
     @NotNull
     @Override
     public Iterator<YamlNode> iterator() {

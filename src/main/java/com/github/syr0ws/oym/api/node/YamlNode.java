@@ -5,4 +5,6 @@ public interface YamlNode {
     boolean isObject();
 
     boolean isCollection();
+
+    Object get();
 }
