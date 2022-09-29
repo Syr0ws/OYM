@@ -3,7 +3,7 @@ package com.github.syr0ws.oym.api.node;
 import java.util.Collection;
 import java.util.Map;
 
-public class YamlElement implements YamlNode {
+public class YamlElement extends AbstractNode {
 
     private final Object object;
 

@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.stream.Stream;
 
-public class YamlCollection implements YamlNode, Iterable<YamlNode> {
+public class YamlCollection extends AbstractNode implements Iterable<YamlNode> {
 
     private final Collection<YamlNode> nodes;
 

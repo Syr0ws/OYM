@@ -16,6 +16,8 @@ import com.github.syr0ws.oym.api.node.YamlNode;
 import com.github.syr0ws.oym.api.instance.InstanceProviderService;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
+
 public class ObjectAdapter<T> implements TypeAdapter<T> {
 
     private final StructureSchemaBuilder builder;
@@ -57,7 +59,10 @@ public class ObjectAdapter<T> implements TypeAdapter<T> {
         StructureSchema<T> schema = this.builder.build(this.type);
 
         for(StructureField<?> field : schema.getFields()) {
+
             YamlNode node = this.mapValue(field, value);
+            node.setComments(Arrays.asList(field.getComments())); // Adding comments to the node.
+
             object.addProperty(field.getKey(), node);
         }
 

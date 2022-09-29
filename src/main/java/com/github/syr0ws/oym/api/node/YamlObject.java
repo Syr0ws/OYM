@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class YamlObject implements YamlNode {
+public class YamlObject extends AbstractNode implements YamlNode {
 
     private final Map<String, YamlNode> nodes;
 
