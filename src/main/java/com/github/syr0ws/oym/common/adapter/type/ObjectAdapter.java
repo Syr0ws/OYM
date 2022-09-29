@@ -75,25 +75,17 @@ public class ObjectAdapter<T> implements TypeAdapter<T> {
         Class<S> type = field.getType();
         S value;
 
-        if(TypeUtil.isPrimitive(type)) {
+        Class<?>[] generics;
 
-            YamlElement element = (YamlElement) object.getProperty(field.getKey());
-            value = (S) element.get();
+        try { generics = GenericUtil.getGenericTypesArray(field.getField());
+        } catch (Exception exception) { throw new TypeAdaptationException(String.format("Cannot retrieve generic types of type '%s'.", type.getName()), exception); }
 
-        } else {
+        // Prise en compte génériques.
+        TypeAdapter<S> adapter = this.factory.getAdapter(type, generics);
 
-            Class<?>[] generics;
+        YamlNode internalNode = object.getProperty(field.getKey());
 
-            try { generics = GenericUtil.getGenericTypesArray(field.getField());
-            } catch (Exception exception) { throw new TypeAdaptationException(String.format("Cannot retrieve generic types of type '%s'.", type.getName()), exception); }
-
-            // Prise en compte génériques.
-            TypeAdapter<S> adapter = this.factory.getAdapter(type, generics);
-
-            YamlNode internalNode = object.getProperty(field.getKey());
-
-            value = adapter.read(internalNode);
-        }
+        value = adapter.read(internalNode);
 
         try { ReflectionUtil.setValue(field, instance, value);
         } catch (Exception exception) { throw new TypeAdaptationException("Cannot bind field value.", exception); }
