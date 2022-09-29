@@ -39,7 +39,7 @@ public abstract class CollectionAdapter<T extends Collection<E>, E> implements T
     }
 
     @Override
-    public YamlNode write(T collection) {
+    public YamlNode write(T collection) throws TypeAdaptationException {
 
         List<YamlNode> nodes = new ArrayList<>();
 

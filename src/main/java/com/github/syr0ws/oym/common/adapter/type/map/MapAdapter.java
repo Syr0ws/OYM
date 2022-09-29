@@ -37,7 +37,7 @@ public abstract class MapAdapter<M extends Map<String, V>, V> implements TypeAda
     }
 
     @Override
-    public YamlNode write(M value) {
+    public YamlNode write(M value) throws TypeAdaptationException {
 
         YamlObject object = new YamlObject(new HashMap<>());
 
