@@ -1,5 +1,6 @@
 package com.github.syr0ws.oym;
 
+import com.github.syr0ws.oym.api.node.YamlNode;
 import com.github.syr0ws.oym.api.schema.StructureSchemaBuilder;
 import com.github.syr0ws.oym.api.YamlObjectParser;
 import com.github.syr0ws.oym.api.YamlObjectParsingException;
@@ -46,5 +47,9 @@ public class Main {
         Team team = teamAdapter.read(object.getProperty("team"));
 
         System.out.println(team);
+
+        YamlObject node = (YamlObject) adapter.write(player);
+
+        System.out.println(node.getProperties());
     }
 }
