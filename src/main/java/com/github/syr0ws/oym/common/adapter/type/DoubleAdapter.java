@@ -13,8 +13,8 @@ public class DoubleAdapter implements TypeAdapter<Double> {
 
         YamlElement element = NodeUtil.cast(node, YamlElement.class);
 
-        if(!element.isDouble())
-            throw new TypeAdaptationException("Node is not a double.");
+        if(!(element.get() instanceof Number))
+            throw new TypeAdaptationException("Node is not a number.");
 
         return element.asDouble();
     }

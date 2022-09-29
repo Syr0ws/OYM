@@ -15,6 +15,10 @@ public class YamlElement extends AbstractNode {
         return (String) this.object;
     }
 
+    public boolean asBoolean() {
+        return (boolean) this.object;
+    }
+
     public int asInt() {
         return (int) this.object;
     }
@@ -29,6 +33,10 @@ public class YamlElement extends AbstractNode {
 
     public boolean isString() {
         return this.object instanceof String;
+    }
+
+    public boolean isBoolean() {
+        return this.object instanceof Boolean;
     }
 
     public boolean isInt() {

@@ -6,21 +6,21 @@ import com.github.syr0ws.oym.api.node.YamlElement;
 import com.github.syr0ws.oym.api.node.YamlNode;
 import com.github.syr0ws.oym.common.util.NodeUtil;
 
-public class LongAdapter implements TypeAdapter<Long> {
+public class BooleanAdapter implements TypeAdapter<Boolean> {
 
     @Override
-    public Long read(YamlNode node) throws TypeAdaptationException {
+    public Boolean read(YamlNode node) throws TypeAdaptationException {
 
         YamlElement element = NodeUtil.cast(node, YamlElement.class);
 
-        if(!(element.get() instanceof Number))
-            throw new TypeAdaptationException("Node is not a number.");
+        if(!element.isBoolean())
+            throw new TypeAdaptationException("Node is not a boolean.");
 
-        return element.asLong();
+        return element.asBoolean();
     }
 
     @Override
-    public YamlNode write(Long value) {
+    public YamlNode write(Boolean value) throws TypeAdaptationException {
         return new YamlElement(value);
     }
 }
