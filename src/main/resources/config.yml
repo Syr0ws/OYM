@@ -1,5 +1,6 @@
 name: "John"
 points: 150
+score: 5.5
 test:
   a: "x"
   b: "x"
