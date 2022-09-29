@@ -1,0 +1,12 @@
+name: "John"
+points: 150
+test:
+  a: "x"
+  b: "x"
+team:
+  name: "Bleu"
+  color: "BLUE"
+  members:
+    - "a"
+    - "b"
+    - "c"
