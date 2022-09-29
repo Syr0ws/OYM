@@ -5,10 +5,7 @@ import com.github.syr0ws.oym.api.adapter.TypeAdapterFactory;
 import com.github.syr0ws.oym.api.adapter.TypeAdapterModel;
 import com.github.syr0ws.oym.api.instance.InstanceProviderService;
 import com.github.syr0ws.oym.api.schema.StructureSchemaBuilder;
-import com.github.syr0ws.oym.common.adapter.type.EnumAdapter;
-import com.github.syr0ws.oym.common.adapter.type.IntegerAdapter;
-import com.github.syr0ws.oym.common.adapter.type.ObjectAdapter;
-import com.github.syr0ws.oym.common.adapter.type.StringAdapter;
+import com.github.syr0ws.oym.common.adapter.type.*;
 import com.github.syr0ws.oym.common.adapter.type.collection.ArrayListAdapter;
 import com.github.syr0ws.oym.common.adapter.type.collection.HashSetAdapter;
 import com.github.syr0ws.oym.common.adapter.type.map.HashMapAdapter;
@@ -23,7 +20,10 @@ public class TypeAdapterFactoryProvider implements TypeAdapterFactory {
 
     static {
         DEFAULT_TYPE_ADAPTER_MODEL.addAdapter(String.class, new StringAdapter());
+        DEFAULT_TYPE_ADAPTER_MODEL.addAdapter(Boolean.class, new BooleanAdapter());
         DEFAULT_TYPE_ADAPTER_MODEL.addAdapter(Integer.class, new IntegerAdapter());
+        DEFAULT_TYPE_ADAPTER_MODEL.addAdapter(Long.class, new LongAdapter());
+        DEFAULT_TYPE_ADAPTER_MODEL.addAdapter(Double.class, new DoubleAdapter());
     }
 
     private final StructureSchemaBuilder builder;
