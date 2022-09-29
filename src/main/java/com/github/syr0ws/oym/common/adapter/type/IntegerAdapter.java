@@ -13,8 +13,8 @@ public class IntegerAdapter implements TypeAdapter<Integer> {
 
         YamlElement element = NodeUtil.cast(node, YamlElement.class);
 
-        if(!(element.get() instanceof Number))
-            throw new TypeAdaptationException("Node is not a number.");
+        if(!element.isInt())
+            throw new TypeAdaptationException("Node is not an integer.");
 
         return element.asInt();
     }

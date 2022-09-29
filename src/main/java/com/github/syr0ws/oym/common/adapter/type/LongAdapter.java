@@ -13,8 +13,8 @@ public class LongAdapter implements TypeAdapter<Long> {
 
         YamlElement element = NodeUtil.cast(node, YamlElement.class);
 
-        if(!(element.get() instanceof Number))
-            throw new TypeAdaptationException("Node is not a number.");
+        if(!element.isLong())
+            throw new TypeAdaptationException("Node is not a long.");
 
         return element.asLong();
     }
