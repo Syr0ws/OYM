@@ -10,14 +10,11 @@ import com.github.syr0ws.oym.api.schema.StructureSchema;
 import com.github.syr0ws.oym.api.schema.StructureSchemaBuilder;
 import com.github.syr0ws.oym.common.util.GenericUtil;
 import com.github.syr0ws.oym.common.util.NodeUtil;
+import com.github.syr0ws.oym.common.util.ReflectionUtil;
 import com.github.syr0ws.oym.common.util.TypeUtil;
 import com.github.syr0ws.oym.api.node.YamlNode;
 import com.github.syr0ws.oym.api.instance.InstanceProviderService;
 import org.jetbrains.annotations.NotNull;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.Optional;
 
 public class ObjectAdapter<T> implements TypeAdapter<T> {
 
@@ -53,8 +50,18 @@ public class ObjectAdapter<T> implements TypeAdapter<T> {
     }
 
     @Override
-    public YamlNode write(T value) {
-        return null;
+    public YamlNode write(T value) throws TypeAdaptationException {
+
+        YamlObject object = new YamlObject();
+
+        StructureSchema<T> schema = this.builder.build(this.type);
+
+        for(StructureField<?> field : schema.getFields()) {
+            YamlNode node = this.mapValue(field, value);
+            object.addProperty(field.getKey(), node);
+        }
+
+        return object;
     }
 
     @SuppressWarnings("unchecked")
@@ -83,43 +90,27 @@ public class ObjectAdapter<T> implements TypeAdapter<T> {
             value = adapter.read(internalNode);
         }
 
-        this.setValue(field, instance, value);
-
+        try { ReflectionUtil.setValue(field, instance, value);
+        } catch (Exception exception) { throw new TypeAdaptationException("Cannot bind field value.", exception); }
     }
 
-    private <V> void setValue(StructureField<V> structureField, T instance, V value) throws TypeAdaptationException {
+    private <S> YamlNode mapValue(StructureField<S> field, T instance) throws TypeAdaptationException {
 
-        Optional<Method> optional = structureField.getSetter();
+        Class<S> type = field.getType();
 
-        if(optional.isPresent()) {
+        Class<?>[] generics;
 
-            // Using the setter.
-            Method setter = optional.get();
-            boolean accessible = setter.isAccessible();
+        try { generics = GenericUtil.getGenericTypesArray(field.getField());
+        } catch (Exception exception) { throw new TypeAdaptationException(String.format("Cannot retrieve generic types of type '%s'.", type.getName()), exception); }
 
-            try {
-                setter.setAccessible(true);
-                setter.invoke(instance, value);
-            } catch (Exception exception) {
-                throw new TypeAdaptationException("Cannot use setter to bind a value.");
-            } finally {
-                setter.setAccessible(accessible);
-            }
+        // Prise en compte génériques.
+        TypeAdapter<S> adapter = this.factory.getAdapter(type, generics);
 
-        } else {
+        S value;
 
-            // Using the field.
-            Field field = structureField.getField();
-            boolean accessible = field.isAccessible();
+        try { value = ReflectionUtil.getValue(field, instance);
+        } catch (Exception exception) { throw new TypeAdaptationException("Cannot retrieve field value.", exception); }
 
-            try {
-                field.setAccessible(true);
-                field.set(instance, value);
-            } catch (Exception exception) {
-                throw new TypeAdaptationException("Cannot bind a value to a field.", exception);
-            } finally {
-                field.setAccessible(accessible);
-            }
-        }
+        return adapter.write(value);
     }
 }
