@@ -9,6 +9,7 @@ import com.github.syr0ws.oym.common.adapter.type.*;
 import com.github.syr0ws.oym.common.adapter.type.collection.ArrayListAdapter;
 import com.github.syr0ws.oym.common.adapter.type.collection.HashSetAdapter;
 import com.github.syr0ws.oym.common.adapter.type.map.HashMapAdapter;
+import com.github.syr0ws.oym.common.util.PrimitiveUtil;
 import com.github.syr0ws.oym.common.util.TypeUtil;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,6 +40,10 @@ public class TypeAdapterFactoryProvider implements TypeAdapterFactory {
     public <T> TypeAdapter<T> getAdapter(@NotNull Class<T> type, Class<?>... generics) {
 
         TypeAdapter<T> adapter;
+
+        // Retrieving and using the wrapper if the type is a primitive.
+        if(type.isPrimitive())
+            type = PrimitiveUtil.getWrapper(type);
 
         if(DEFAULT_TYPE_ADAPTER_MODEL.hasAdapter(type)) {
 
