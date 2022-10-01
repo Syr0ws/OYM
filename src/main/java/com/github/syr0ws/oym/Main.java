@@ -1,7 +1,5 @@
 package com.github.syr0ws.oym;
 
-import com.github.syr0ws.oym.api.node.YamlNode;
-import com.github.syr0ws.oym.api.schema.StructureSchemaBuilder;
 import com.github.syr0ws.oym.api.YamlObjectParser;
 import com.github.syr0ws.oym.api.YamlObjectParsingException;
 import com.github.syr0ws.oym.api.adapter.TypeAdaptationException;
@@ -9,6 +7,7 @@ import com.github.syr0ws.oym.api.adapter.TypeAdapter;
 import com.github.syr0ws.oym.api.adapter.TypeAdapterFactory;
 import com.github.syr0ws.oym.api.instance.InstanceProviderService;
 import com.github.syr0ws.oym.api.node.YamlObject;
+import com.github.syr0ws.oym.api.schema.StructureSchemaBuilder;
 import com.github.syr0ws.oym.common.CommonYamlObjectParser;
 import com.github.syr0ws.oym.common.adapter.TypeAdapterFactoryProvider;
 import com.github.syr0ws.oym.common.instance.CommonInstanceProviderService;
