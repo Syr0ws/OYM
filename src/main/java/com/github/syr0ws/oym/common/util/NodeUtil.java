@@ -8,7 +8,7 @@ public class NodeUtil {
     public static <T extends YamlNode> T cast(YamlNode node, Class<T> type) throws YamlNodeException {
 
         if(!type.isInstance(node))
-            throw new YamlNodeException("Invalid node type.");
+            throw new YamlNodeException(String.format("Cannot cast %s to %s.", node.getClass().getName(), type.getName()));
 
         return type.cast(node);
     }
