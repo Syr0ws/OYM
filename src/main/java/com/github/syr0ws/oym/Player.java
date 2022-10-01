@@ -11,7 +11,7 @@ public class Player {
     private String name;
 
     @Key
-    private Integer points;
+    private int points;
 
     @Key
     private Team team;
@@ -20,7 +20,7 @@ public class Player {
     private Map<String, String> test;
 
     @Key
-    private Double score;
+    private double score;
 
     @KeySetter(field = "name")
     public void setName(String name) {
