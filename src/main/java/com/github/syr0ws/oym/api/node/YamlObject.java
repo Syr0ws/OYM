@@ -3,7 +3,7 @@ package com.github.syr0ws.oym.api.node;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class YamlObject extends AbstractNode implements YamlNode {
@@ -11,11 +11,12 @@ public class YamlObject extends AbstractNode implements YamlNode {
     private final Map<String, YamlNode> nodes;
 
     public YamlObject() {
-        this.nodes = new HashMap<>();
+        this.nodes = new LinkedHashMap<>();
     }
 
     public YamlObject(Map<String, YamlNode> nodes) {
-        this.nodes = nodes;
+        this();
+        this.nodes.putAll(nodes);
     }
 
     @Override
