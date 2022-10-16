@@ -6,15 +6,15 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class YamlObject extends AbstractNode implements YamlNode {
+public class ObjectNode extends AbstractNode implements Node {
 
-    private final Map<String, YamlNode> nodes;
+    private final Map<String, Node> nodes;
 
-    public YamlObject() {
+    public ObjectNode() {
         this.nodes = new LinkedHashMap<>();
     }
 
-    public YamlObject(Map<String, YamlNode> nodes) {
+    public ObjectNode(Map<String, Node> nodes) {
         this();
         this.nodes.putAll(nodes);
     }
@@ -34,7 +34,7 @@ public class YamlObject extends AbstractNode implements YamlNode {
         return this.getProperties();
     }
 
-    public void addProperty(@NotNull String key, @NotNull YamlNode node) {
+    public void addProperty(@NotNull String key, @NotNull Node node) {
         this.nodes.put(key, node);
     }
 
@@ -46,11 +46,11 @@ public class YamlObject extends AbstractNode implements YamlNode {
         return this.nodes.containsKey(key);
     }
 
-    public YamlNode getProperty(@NotNull String key) {
+    public Node getProperty(@NotNull String key) {
         return this.nodes.get(key);
     }
 
-    public Map<String, YamlNode> getProperties() {
+    public Map<String, Node> getProperties() {
         return Collections.unmodifiableMap(this.nodes);
     }
 }

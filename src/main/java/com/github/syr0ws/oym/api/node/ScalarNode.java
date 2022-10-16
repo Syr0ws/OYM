@@ -3,11 +3,11 @@ package com.github.syr0ws.oym.api.node;
 import java.util.Collection;
 import java.util.Map;
 
-public class YamlElement extends AbstractNode {
+public class ScalarNode extends AbstractNode {
 
     private final Object object;
 
-    public YamlElement(Object object) {
+    public ScalarNode(Object object) {
         this.object = object;
     }
 

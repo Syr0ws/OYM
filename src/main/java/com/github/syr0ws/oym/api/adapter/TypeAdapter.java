@@ -1,10 +1,10 @@
 package com.github.syr0ws.oym.api.adapter;
 
-import com.github.syr0ws.oym.api.node.YamlNode;
+import com.github.syr0ws.oym.api.node.Node;
 
 public interface TypeAdapter<T> {
 
-    T read(YamlNode node) throws TypeAdaptationException;
+    T read(Node node) throws TypeAdaptationException;
 
-    YamlNode write(T value) throws TypeAdaptationException;
+    Node write(T value) throws TypeAdaptationException;
 }

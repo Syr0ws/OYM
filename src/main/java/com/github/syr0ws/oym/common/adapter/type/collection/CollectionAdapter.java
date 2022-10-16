@@ -2,8 +2,8 @@ package com.github.syr0ws.oym.common.adapter.type.collection;
 
 import com.github.syr0ws.oym.api.adapter.TypeAdaptationException;
 import com.github.syr0ws.oym.api.adapter.TypeAdapter;
-import com.github.syr0ws.oym.api.node.YamlCollection;
-import com.github.syr0ws.oym.api.node.YamlNode;
+import com.github.syr0ws.oym.api.node.CollectionNode;
+import com.github.syr0ws.oym.api.node.Node;
 import com.github.syr0ws.oym.common.util.NodeUtil;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,13 +22,13 @@ public abstract class CollectionAdapter<T extends Collection<E>, E> implements T
     public abstract T getInstance();
 
     @Override
-    public T read(YamlNode node) throws TypeAdaptationException {
+    public T read(Node node) throws TypeAdaptationException {
 
-        YamlCollection yamlCollection = NodeUtil.cast(node, YamlCollection.class);
+        CollectionNode collectionNode = NodeUtil.cast(node, CollectionNode.class);
 
         T collection = this.getInstance();
 
-        for(YamlNode internal : yamlCollection) {
+        for(Node internal : collectionNode) {
 
             E object = this.adapter.read(internal);
 
@@ -39,17 +39,17 @@ public abstract class CollectionAdapter<T extends Collection<E>, E> implements T
     }
 
     @Override
-    public YamlNode write(T collection) throws TypeAdaptationException {
+    public Node write(T collection) throws TypeAdaptationException {
 
-        List<YamlNode> nodes = new ArrayList<>();
+        List<Node> nodes = new ArrayList<>();
 
         for(E object : collection) {
 
-            YamlNode node = this.adapter.write(object);
+            Node node = this.adapter.write(object);
 
             nodes.add(node);
         }
 
-        return new YamlCollection(nodes);
+        return new CollectionNode(nodes);
     }
 }

@@ -2,7 +2,7 @@ package com.github.syr0ws.oym.api.node;
 
 import java.util.List;
 
-public interface YamlNode {
+public interface Node {
 
     boolean isObject();
 

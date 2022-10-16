@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractNode implements YamlNode {
+public abstract class AbstractNode implements Node {
 
     private final List<String> comments = new ArrayList<>();
 

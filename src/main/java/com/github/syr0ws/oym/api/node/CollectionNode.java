@@ -7,11 +7,11 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.stream.Stream;
 
-public class YamlCollection extends AbstractNode implements Iterable<YamlNode> {
+public class CollectionNode extends AbstractNode implements Iterable<Node> {
 
-    private final Collection<YamlNode> nodes;
+    private final Collection<Node> nodes;
 
-    public YamlCollection(@NotNull Collection<YamlNode> nodes) {
+    public CollectionNode(@NotNull Collection<Node> nodes) {
         this.nodes = nodes;
     }
 
@@ -32,15 +32,15 @@ public class YamlCollection extends AbstractNode implements Iterable<YamlNode> {
 
     @NotNull
     @Override
-    public Iterator<YamlNode> iterator() {
+    public Iterator<Node> iterator() {
         return this.nodes.iterator();
     }
 
-    public Stream<YamlNode> stream() {
+    public Stream<Node> stream() {
         return this.nodes.stream();
     }
 
-    public Collection<YamlNode> getNodes() {
+    public Collection<Node> getNodes() {
         return Collections.unmodifiableCollection(this.nodes);
     }
 }

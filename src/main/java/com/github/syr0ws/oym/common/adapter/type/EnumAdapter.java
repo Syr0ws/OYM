@@ -1,9 +1,9 @@
 package com.github.syr0ws.oym.common.adapter.type;
 
-import com.github.syr0ws.oym.api.node.YamlElement;
+import com.github.syr0ws.oym.api.node.ScalarNode;
 import com.github.syr0ws.oym.api.adapter.TypeAdaptationException;
 import com.github.syr0ws.oym.api.adapter.TypeAdapter;
-import com.github.syr0ws.oym.api.node.YamlNode;
+import com.github.syr0ws.oym.api.node.Node;
 import com.github.syr0ws.oym.common.util.NodeUtil;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,9 +16,9 @@ public class EnumAdapter<T extends Enum<T>> implements TypeAdapter<T> {
     }
 
     @Override
-    public T read(YamlNode node) throws TypeAdaptationException {
+    public T read(Node node) throws TypeAdaptationException {
 
-        YamlElement element = NodeUtil.cast(node, YamlElement.class);
+        ScalarNode element = NodeUtil.cast(node, ScalarNode.class);
 
         if(!element.isString())
             throw new TypeAdaptationException("YamlElement is not a String.");
@@ -33,7 +33,7 @@ public class EnumAdapter<T extends Enum<T>> implements TypeAdapter<T> {
     }
 
     @Override
-    public YamlNode write(T value) {
-        return new YamlElement(value.name());
+    public Node write(T value) {
+        return new ScalarNode(value.name());
     }
 }

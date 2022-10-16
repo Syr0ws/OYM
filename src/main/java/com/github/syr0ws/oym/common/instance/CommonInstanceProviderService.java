@@ -1,12 +1,12 @@
 package com.github.syr0ws.oym.common.instance;
 
 import com.github.syr0ws.oym.api.instance.InstanceProviderService;
-import com.github.syr0ws.oym.api.node.YamlNode;
+import com.github.syr0ws.oym.api.node.Node;
 
 public class CommonInstanceProviderService implements InstanceProviderService {
 
     @Override
-    public <T> T provide(Class<T> type, YamlNode node) throws InstantiationException {
+    public <T> T provide(Class<T> type, Node node) throws InstantiationException {
 
         T instance;
 

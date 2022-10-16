@@ -3,16 +3,14 @@ package com.github.syr0ws.oym.common.adapter.type;
 import com.github.syr0ws.oym.api.adapter.TypeAdaptationException;
 import com.github.syr0ws.oym.api.adapter.TypeAdapter;
 import com.github.syr0ws.oym.api.adapter.TypeAdapterFactory;
-import com.github.syr0ws.oym.api.node.YamlElement;
-import com.github.syr0ws.oym.api.node.YamlObject;
+import com.github.syr0ws.oym.api.node.ObjectNode;
 import com.github.syr0ws.oym.api.schema.StructureField;
 import com.github.syr0ws.oym.api.schema.StructureSchema;
 import com.github.syr0ws.oym.api.schema.StructureSchemaBuilder;
 import com.github.syr0ws.oym.common.util.GenericUtil;
 import com.github.syr0ws.oym.common.util.NodeUtil;
 import com.github.syr0ws.oym.common.util.ReflectionUtil;
-import com.github.syr0ws.oym.common.util.TypeUtil;
-import com.github.syr0ws.oym.api.node.YamlNode;
+import com.github.syr0ws.oym.api.node.Node;
 import com.github.syr0ws.oym.api.instance.InstanceProviderService;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,9 +31,9 @@ public class ObjectAdapter<T> implements TypeAdapter<T> {
     }
 
     @Override
-    public T read(YamlNode node) throws TypeAdaptationException {
+    public T read(Node node) throws TypeAdaptationException {
 
-        YamlObject object = NodeUtil.cast(node, YamlObject.class);
+        ObjectNode object = NodeUtil.cast(node, ObjectNode.class);
 
         T instance;
 
@@ -52,15 +50,15 @@ public class ObjectAdapter<T> implements TypeAdapter<T> {
     }
 
     @Override
-    public YamlNode write(T value) throws TypeAdaptationException {
+    public Node write(T value) throws TypeAdaptationException {
 
-        YamlObject object = new YamlObject();
+        ObjectNode object = new ObjectNode();
 
         StructureSchema<T> schema = this.builder.build(this.type);
 
         for(StructureField<?> field : schema.getFields()) {
 
-            YamlNode node = this.mapValue(field, value);
+            Node node = this.mapValue(field, value);
             node.setComments(Arrays.asList(field.getComments())); // Adding comments to the node.
 
             object.addProperty(field.getKey(), node);
@@ -70,7 +68,7 @@ public class ObjectAdapter<T> implements TypeAdapter<T> {
     }
 
     @SuppressWarnings("unchecked")
-    private <S> void bindValue(StructureField<S> field, T instance, YamlObject object) throws TypeAdaptationException {
+    private <S> void bindValue(StructureField<S> field, T instance, ObjectNode object) throws TypeAdaptationException {
 
         Class<S> type = field.getType();
         S value;
@@ -83,7 +81,7 @@ public class ObjectAdapter<T> implements TypeAdapter<T> {
         // Prise en compte génériques.
         TypeAdapter<S> adapter = this.factory.getAdapter(type, generics);
 
-        YamlNode internalNode = object.getProperty(field.getKey());
+        Node internalNode = object.getProperty(field.getKey());
 
         value = adapter.read(internalNode);
 
@@ -91,7 +89,7 @@ public class ObjectAdapter<T> implements TypeAdapter<T> {
         } catch (Exception exception) { throw new TypeAdaptationException("Cannot bind field value.", exception); }
     }
 
-    private <S> YamlNode mapValue(StructureField<S> field, T instance) throws TypeAdaptationException {
+    private <S> Node mapValue(StructureField<S> field, T instance) throws TypeAdaptationException {
 
         Class<S> type = field.getType();
 
