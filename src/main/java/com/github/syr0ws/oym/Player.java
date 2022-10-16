@@ -7,19 +7,19 @@ import java.util.Map;
 
 public class Player {
 
-    @Key(comments = {"", "", ""})
+    @Key(comments = {"name"})
     private String name;
 
-    @Key
+    @Key(comments = {"points"})
     private int points;
 
-    @Key
+    @Key(comments = {"team"})
     private Team team;
 
-    @Key
+    @Key(comments = {"test"})
     private Map<String, String> test;
 
-    @Key
+    @Key(comments = {"score"})
     private double score;
 
     @KeySetter(field = "name")
