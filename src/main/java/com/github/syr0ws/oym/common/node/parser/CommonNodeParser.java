@@ -1,7 +1,7 @@
-package com.github.syr0ws.oym.common;
+package com.github.syr0ws.oym.common.node.parser;
 
-import com.github.syr0ws.oym.api.NodeParser;
-import com.github.syr0ws.oym.api.NodeParsingException;
+import com.github.syr0ws.oym.api.node.parser.NodeParser;
+import com.github.syr0ws.oym.api.node.parser.NodeParsingException;
 import com.github.syr0ws.oym.api.node.CollectionNode;
 import com.github.syr0ws.oym.api.node.ScalarNode;
 import com.github.syr0ws.oym.api.node.Node;
