@@ -18,6 +18,10 @@ public class PrimitiveUtil {
         PRIMITIVES_TO_WRAPPERS.put(long.class, Long.class);
     }
 
+    public static boolean isPrimitive(Class<?> type) {
+         return PRIMITIVES_TO_WRAPPERS.containsKey(type);
+    }
+
     @SuppressWarnings("unchecked")
    public static <T> Class<T> getWrapper(Class<T> primitiveType) {
         return primitiveType.isPrimitive() ? (Class<T>) PRIMITIVES_TO_WRAPPERS.get(primitiveType) : primitiveType;
