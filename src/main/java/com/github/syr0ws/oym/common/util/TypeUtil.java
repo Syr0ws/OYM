@@ -18,7 +18,7 @@ public class TypeUtil {
             String.class
     );
 
-    public static boolean isPrimitive(Class<?> type) {
+    public static boolean isPrimitiveWrapper(Class<?> type) {
         return PRIMITIVE_TYPES.contains(type);
     }
 

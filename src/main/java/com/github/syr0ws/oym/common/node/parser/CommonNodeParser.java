@@ -37,7 +37,7 @@ public class CommonNodeParser implements NodeParser {
 
         Class<?> type = object.getClass();
 
-        if(TypeUtil.isPrimitive(type)) {
+        if(TypeUtil.isPrimitiveWrapper(type)) {
             return new ScalarNode(object);
         }
 
