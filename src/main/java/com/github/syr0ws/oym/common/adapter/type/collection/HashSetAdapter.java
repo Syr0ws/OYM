@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 
-public class HashSetAdapter<E> extends CollectionAdapter<HashSet<E>, E> {
+public class HashSetAdapter<E> extends AbstractCollectionAdapter<HashSet<E>, E> {
 
     public HashSetAdapter(@NotNull TypeAdapter<E> adapter) {
         super(adapter);

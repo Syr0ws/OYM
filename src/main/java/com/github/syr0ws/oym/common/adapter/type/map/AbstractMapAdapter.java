@@ -10,11 +10,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class MapAdapter<M extends Map<String, V>, V> implements TypeAdapter<M> {
+public abstract class AbstractMapAdapter<M extends Map<String, V>, V> implements TypeAdapter<M> {
 
     private final TypeAdapter<V> adapter;
 
-    public MapAdapter(@NotNull TypeAdapter<V> adapter) {
+    public AbstractMapAdapter(@NotNull TypeAdapter<V> adapter) {
         this.adapter = adapter;
     }
 

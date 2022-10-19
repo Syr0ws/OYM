@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class ArrayListAdapter<E> extends CollectionAdapter<ArrayList<E>, E> {
+public class ArrayListAdapter<E> extends AbstractCollectionAdapter<ArrayList<E>, E> {
 
     public ArrayListAdapter(@NotNull TypeAdapter<E> adapter) {
         super(adapter);

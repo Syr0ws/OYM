@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class CollectionAdapter<T extends Collection<E>, E> implements TypeAdapter<T> {
+public abstract class AbstractCollectionAdapter<T extends Collection<E>, E> implements TypeAdapter<T> {
 
     private final TypeAdapter<E> adapter;
 
-    public CollectionAdapter(@NotNull TypeAdapter<E> adapter) {
+    public AbstractCollectionAdapter(@NotNull TypeAdapter<E> adapter) {
         this.adapter = adapter;
     }
 

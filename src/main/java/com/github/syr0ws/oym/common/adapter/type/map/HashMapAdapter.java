@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
-public class HashMapAdapter<V> extends MapAdapter<HashMap<String, V>, V> {
+public class HashMapAdapter<V> extends AbstractMapAdapter<HashMap<String, V>, V> {
 
     public HashMapAdapter(@NotNull TypeAdapter<V> adapter) {
         super(adapter);
