@@ -4,5 +4,5 @@ import com.github.syr0ws.oym.api.node.Node;
 
 public interface InstanceProviderService {
 
-    <T> T provide(Class<T> type, Node node) throws InstantiationException;
+    <T> T getInstance(Class<T> type, Node node) throws InstanceException;
 }

@@ -2,9 +2,8 @@ package com.github.syr0ws.oym.api.instance;
 
 import com.github.syr0ws.oym.api.node.Node;
 
-public interface InstanceProvider<I> {
+@FunctionalInterface
+public interface InstanceProvider<T> {
 
-    <T extends I> T provide(Node node) throws Exception;
-
-    Class<I> getType();
+    T provide(Node node);
 }

@@ -1,6 +1,7 @@
 package com.github.syr0ws.oym;
 
 import com.github.syr0ws.oym.api.adapter.provider.TypeAdapterProviderModel;
+import com.github.syr0ws.oym.api.instance.InstanceProviderModel;
 import com.github.syr0ws.oym.api.node.parser.NodeParser;
 import com.github.syr0ws.oym.api.node.parser.NodeParsingException;
 import com.github.syr0ws.oym.api.adapter.TypeAdaptationException;
@@ -17,6 +18,7 @@ import com.github.syr0ws.oym.common.adapter.provider.type.collection.ListAdapter
 import com.github.syr0ws.oym.common.adapter.provider.type.collection.SetAdapterProvider;
 import com.github.syr0ws.oym.common.adapter.provider.type.map.HashMapAdapterProvider;
 import com.github.syr0ws.oym.common.adapter.provider.type.map.MapAdapterProvider;
+import com.github.syr0ws.oym.common.instance.CommonInstanceProviderModel;
 import com.github.syr0ws.oym.common.node.parser.CommonNodeParser;
 import com.github.syr0ws.oym.common.instance.CommonInstanceProviderService;
 import com.github.syr0ws.oym.common.schema.CommonStructureSchemaBuilder;
@@ -45,7 +47,10 @@ public class Main {
         ObjectNode object = parser.parse(map);
 
         StructureSchemaBuilder builder = new CommonStructureSchemaBuilder();
-        InstanceProviderService service = new CommonInstanceProviderService();
+        InstanceProviderModel instanceProviderModel = new CommonInstanceProviderModel();
+        instanceProviderModel.addProvider(Team.class, node -> new TeamImpl());
+
+        InstanceProviderService service = new CommonInstanceProviderService(instanceProviderModel);
 
         // TypeAdapterFactory factory = new TypeAdapterFactoryProvider(builder, service);
 
@@ -71,9 +76,9 @@ public class Main {
 
         System.out.println(player);
 
-        TypeAdapter<Team> teamAdapter = factory.getAdapter(Team.class);
+        TypeAdapter<TeamImpl> teamAdapter = factory.getAdapter(TeamImpl.class);
 
-        Team team = teamAdapter.read(object.getProperty("team"));
+        TeamImpl team = teamAdapter.read(object.getProperty("team"));
 
         System.out.println(team);
 

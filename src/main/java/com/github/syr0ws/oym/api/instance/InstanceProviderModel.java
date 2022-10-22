@@ -1,17 +1,17 @@
 package com.github.syr0ws.oym.api.instance;
 
+import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 public interface InstanceProviderModel {
 
-    void addProvider(InstanceProvider<?> provider);
+    <T> void addProvider(Class<? super T> type, InstanceProvider<T> provider);
 
     boolean removeProvider(Class<?> type);
 
     boolean hasProvider(Class<?> type);
 
-    <I> Optional<InstanceProvider<I>> getProvider(Class<I> type);
+    <T> Optional<InstanceProvider<T>> getProvider(Class<? super T> type);
 
-    Set<InstanceProvider<?>> getProviders();
+    Map<Class<?>, InstanceProvider<?>> getProviders();
 }

@@ -3,6 +3,7 @@ package com.github.syr0ws.oym.common.adapter.type;
 import com.github.syr0ws.oym.api.adapter.TypeAdaptationException;
 import com.github.syr0ws.oym.api.adapter.TypeAdapter;
 import com.github.syr0ws.oym.api.adapter.TypeAdapterFactory;
+import com.github.syr0ws.oym.api.instance.InstanceException;
 import com.github.syr0ws.oym.api.node.ObjectNode;
 import com.github.syr0ws.oym.api.schema.StructureField;
 import com.github.syr0ws.oym.api.schema.StructureSchema;
@@ -37,10 +38,10 @@ public class ObjectAdapter<T> implements TypeAdapter<T> {
 
         T instance;
 
-        try { instance = this.service.provide(this.type, node);
-        } catch (InstantiationException exception) { throw new TypeAdaptationException("Cannot adapt object.", exception); }
+        try { instance = this.service.getInstance(this.type, node);
+        } catch (InstanceException exception) { throw new TypeAdaptationException("Cannot adapt object.", exception); }
 
-        StructureSchema<T> schema = this.builder.build(this.type);
+        StructureSchema<?> schema = this.builder.build(instance.getClass());
 
         for(StructureField<?> field : schema.getFields()) {
             this.bindValue(field, instance, object);
@@ -54,7 +55,7 @@ public class ObjectAdapter<T> implements TypeAdapter<T> {
 
         ObjectNode object = new ObjectNode();
 
-        StructureSchema<T> schema = this.builder.build(this.type);
+        StructureSchema<?> schema = this.builder.build(value.getClass());
 
         for(StructureField<?> field : schema.getFields()) {
 
@@ -67,7 +68,6 @@ public class ObjectAdapter<T> implements TypeAdapter<T> {
         return object;
     }
 
-    @SuppressWarnings("unchecked")
     private <S> void bindValue(StructureField<S> field, T instance, ObjectNode object) throws TypeAdaptationException {
 
         Class<S> type = field.getType();

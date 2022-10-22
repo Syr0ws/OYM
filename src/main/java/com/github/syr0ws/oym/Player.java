@@ -3,7 +3,6 @@ package com.github.syr0ws.oym;
 import com.github.syr0ws.oym.api.annotation.Key;
 import com.github.syr0ws.oym.api.annotation.KeySetter;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Player {
