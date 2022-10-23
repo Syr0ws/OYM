@@ -26,17 +26,21 @@ public class NodeSection implements ConfigurationSection {
 
     @Override
     public String getString(@NotNull String path, String defaultValue) {
-        return null;
+
+        try { return this.getString(path);
+        } catch (ConfigurationSectionException ignored) { return defaultValue; }
     }
 
     @Override
     public boolean getBoolean(@NotNull String path) throws ConfigurationSectionException {
-        return false;
+        return this.getValue(path, this.node, Boolean.class);
     }
 
     @Override
     public boolean getBoolean(@NotNull String path, boolean defaultValue) {
-        return false;
+
+        try { return this.getBoolean(path);
+        } catch (ConfigurationSectionException ignored) { return defaultValue; }
     }
 
     @Override
@@ -46,37 +50,45 @@ public class NodeSection implements ConfigurationSection {
 
     @Override
     public int getInt(@NotNull String path, int defaultValue) {
-        return 0;
+
+        try { return this.getInt(path);
+        } catch (ConfigurationSectionException ignored) { return defaultValue; }
     }
 
     @Override
     public long getLong(@NotNull String path) throws ConfigurationSectionException {
-        return 0;
+        return this.getValue(path, this.node, Long.class);
     }
 
     @Override
     public long getLong(@NotNull String path, long defaultValue) {
-        return 0;
+
+        try { return this.getLong(path);
+        } catch (ConfigurationSectionException ignored) { return defaultValue; }
     }
 
     @Override
     public float getFloat(@NotNull String path) throws ConfigurationSectionException {
-        return 0;
+       return this.getValue(path, this.node, Float.class);
     }
 
     @Override
     public float getFloat(@NotNull String path, float defaultValue) {
-        return 0;
+
+        try { return this.getFloat(path);
+        } catch (ConfigurationSectionException ignored) { return defaultValue; }
     }
 
     @Override
     public double getDouble(@NotNull String path) throws ConfigurationSectionException {
-        return 0;
+        return this.getValue(path, this.node, Double.class);
     }
 
     @Override
     public double getDouble(@NotNull String path, double defaultValue) {
-        return 0;
+
+        try { return this.getDouble(path);
+        } catch (ConfigurationSectionException ignored) { return defaultValue; }
     }
     @Override
     public ConfigurationSection getSection(@NotNull String path) throws ConfigurationSectionException {
@@ -115,8 +127,14 @@ public class NodeSection implements ConfigurationSection {
 
     @Override
     public boolean hasKey(@NotNull String path) {
+
+        if(this.node.hasProperty(path)) return true;
+
         NodePath nodePath = new NodePath(path);
         ObjectNode parent = this.getParentNode(this.node, nodePath);
+
+        System.out.println(parent.getProperties());
+
         return parent != null && parent.hasProperty(nodePath.getProperty());
     }
 
@@ -127,14 +145,9 @@ public class NodeSection implements ConfigurationSection {
 
     private ObjectNode getParentNode(ObjectNode parent, NodePath path) {
 
-        // p1 -> p1 (avec p1 ObjectNode)
-        // p1.p2.p3 -> p2 (avec p2 ObjectNode)
-
-        System.out.println(path.getPath());
-
         if(path.getPath().equals("")) return parent;
 
-        String nextNode = path.getNextNode();
+        String nextNode = path.getNext();
 
         // Property not found.
         if(!parent.hasProperty(nextNode)) return null;
@@ -176,60 +189,18 @@ public class NodeSection implements ConfigurationSection {
         return value;
     }
 
-    /*
-    private <T> T getValue(String path, ObjectNode node, Class<T> type) throws ConfigurationSectionException {
+    private static class NodePath {
 
-        T value;
-
-        if(!path.contains(".")) {
-
-            if(!node.hasProperty(path))
-                throw new ConfigurationSectionException(String.format("No key found in '%s'.", path));
-
-            Node property = node.getProperty(path);
-
-            TypeAdapter<T> adapter = this.factory.getAdapter(type);
-
-            try {
-                value = adapter.read(property);
-            } catch (TypeAdaptationException exception) {
-                throw new ConfigurationSectionException(String.format("Cannot read value at '%s' with type '%s'.", path, type.getName()), exception);
-            }
-
-        } else {
-
-            String subPath = path.split("\\.")[0];
-
-            if(!node.hasProperty(subPath))
-                throw new ConfigurationSectionException(String.format("Key '%s' not found in '%s'.", subPath, path));
-
-            Node property = node.getProperty(subPath);
-
-            if(!property.isObject())
-                throw new ConfigurationSectionException(String.format("Key '%s' is not a sub section in '%s'.", subPath, path));
-
-            path = path.replaceFirst(subPath + "\\.", "");
-
-            value = this.getValue(path, (ObjectNode) property, type);
-        }
-
-        return value;
-    }
-     */
-
-    private class NodePath {
-
-        private final String path, nodes, nextNode, property;
+        private final String path, next, property;
 
         public NodePath(String path) {
 
             int firstIndex = path.indexOf(".");
             int lastIndex = path.lastIndexOf(".");
 
-            this.path = path;
-            this.nodes = lastIndex == -1 ? null : path.substring(0, lastIndex);
-            this.property = lastIndex == -1 ? path : path.substring(lastIndex+1);
-            this.nextNode = firstIndex == -1 || this.nodes == null ? path : this.nodes.substring(0, firstIndex);
+            this.path = path; // Current path.
+            this.next = firstIndex == -1 ? path : path.substring(0, firstIndex); // Next node.
+            this.property = lastIndex == -1 ? path : path.substring(lastIndex+1); // Property.
         }
 
         // Non-modified path.
@@ -237,19 +208,18 @@ public class NodeSection implements ConfigurationSection {
             return this.path;
         }
 
-        // Path only composed of nodes, without the property name.
-        public String getNodes() {
-            return this.nodes;
+        // Next node.
+        public String getNext() {
+            return this.next;
         }
 
-        public String getNextNode() {
-            return this.nextNode;
-        }
-
-        // Path only composed of nodes, without the next node.
+        // Path without the next node.
         public NodePath getDeeperPath() {
-            String path = this.path.replaceFirst(this.nextNode + "\\.", "");
-            System.out.println("replaced " + path);
+
+            String path = this.path.replaceFirst(this.next, "");
+
+            if(path.startsWith(".")) path = path.substring(1);
+
             return new NodePath(path);
         }
 
