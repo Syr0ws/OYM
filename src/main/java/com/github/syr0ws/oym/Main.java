@@ -40,6 +40,6 @@ public class Main {
 
         ConfigurationSection teamSection = section.getSection("team");
 
-        System.out.println(teamSection.getNode().getProperties());
+        System.out.println(section.hasKey("team.members"));
     }
 }
