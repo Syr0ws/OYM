@@ -31,9 +31,9 @@ public interface ConfigurationSection {
 
     ConfigurationSection getSection(@NotNull String path) throws ConfigurationSectionException;
 
-    <T> void to(@NotNull T value) throws ConfigurationSectionException;
+    <T> void set(@NotNull T value) throws ConfigurationSectionException;
 
-    <T> T from(@NotNull Class<T> type) throws ConfigurationSectionException;
+    <T> T get(@NotNull Class<T> type) throws ConfigurationSectionException;
 
     boolean hasKey(@NotNull String path);
 

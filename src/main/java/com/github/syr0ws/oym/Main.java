@@ -21,12 +21,12 @@ public class Main {
 
         Player player = null;
 
-        try { player = section.from(Player.class);
+        try { player = section.get(Player.class);
         } catch (ConfigurationSectionException exception) { exception.printStackTrace(); }
 
         System.out.println(player);
 
-        try { section.to(player);
+        try { section.set(player);
         } catch (ConfigurationSectionException exception) { exception.printStackTrace(); }
 
         String content = mapper.writeSection(section);

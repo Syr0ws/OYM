@@ -94,7 +94,7 @@ public class NodeSection implements ConfigurationSection {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> void to(@NotNull T value) throws ConfigurationSectionException {
+    public <T> void set(@NotNull T value) throws ConfigurationSectionException {
 
         TypeAdapter<T> adapter = (TypeAdapter<T>) this.factory.getAdapter(value.getClass());
 
@@ -103,7 +103,7 @@ public class NodeSection implements ConfigurationSection {
     }
 
     @Override
-    public <T> T from(@NotNull Class<T> type) throws ConfigurationSectionException {
+    public <T> T get(@NotNull Class<T> type) throws ConfigurationSectionException {
 
         T object;
 
