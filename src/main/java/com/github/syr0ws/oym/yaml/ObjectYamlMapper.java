@@ -29,7 +29,7 @@ public class ObjectYamlMapper extends AbstractObjectFileMapper {
     }
 
     @Override
-    public ObjectNode read(InputStream stream) throws NodeParsingException {
+    public ObjectNode readNode(InputStream stream) throws NodeParsingException {
 
         Map<String, Object> map = this.yaml.load(stream);
 
@@ -39,7 +39,7 @@ public class ObjectYamlMapper extends AbstractObjectFileMapper {
     }
 
     @Override
-    public String write(ObjectNode node) {
+    public String writeNode(ObjectNode node) {
 
         MappingNode mappingNode = this.mapper.map(node);
 

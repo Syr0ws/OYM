@@ -6,7 +6,6 @@ import com.github.syr0ws.oym.api.adapter.provider.TypeAdapterProviderModel;
 import com.github.syr0ws.oym.api.instance.InstanceProviderModel;
 import com.github.syr0ws.oym.api.instance.InstanceProviderService;
 import com.github.syr0ws.oym.api.node.ObjectNode;
-import com.github.syr0ws.oym.api.node.parser.NodeParser;
 import com.github.syr0ws.oym.api.node.parser.NodeParsingException;
 import com.github.syr0ws.oym.api.schema.StructureSchemaBuilder;
 import com.github.syr0ws.oym.api.section.ConfigurationSection;
@@ -20,12 +19,10 @@ import com.github.syr0ws.oym.common.adapter.provider.type.map.HashMapAdapterProv
 import com.github.syr0ws.oym.common.adapter.provider.type.map.MapAdapterProvider;
 import com.github.syr0ws.oym.common.instance.CommonInstanceProviderModel;
 import com.github.syr0ws.oym.common.instance.CommonInstanceProviderService;
-import com.github.syr0ws.oym.common.node.parser.CommonNodeParser;
 import com.github.syr0ws.oym.common.schema.CommonStructureSchemaBuilder;
 import com.github.syr0ws.oym.common.section.NodeSection;
 
 import java.io.InputStream;
-import java.util.Map;
 
 public abstract class AbstractObjectFileMapper implements ObjectFileMapper {
 
@@ -63,15 +60,15 @@ public abstract class AbstractObjectFileMapper implements ObjectFileMapper {
     }
 
     @Override
-    public ConfigurationSection readAsSection(InputStream stream) throws NodeParsingException {
-        ObjectNode node = this.read(stream);
+    public ConfigurationSection readSection(InputStream stream) throws NodeParsingException {
+        ObjectNode node = this.readNode(stream);
         return new NodeSection(this.typeAdapterFactory, node);
     }
 
     @Override
     public String writeSection(ConfigurationSection section) {
         ObjectNode node = section.getNode();
-        return this.write(node);
+        return this.writeNode(node);
     }
 
     @Override

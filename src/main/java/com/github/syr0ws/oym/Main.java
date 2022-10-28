@@ -22,7 +22,7 @@ public class Main {
         ObjectFileMapper mapper = new ObjectYamlMapper();
         mapper.getInstanceProviderModel().addProvider(Team.class, node -> new TeamImpl());
 
-        ConfigurationSection section = mapper.readAsSection(stream);
+        ConfigurationSection section = mapper.readSection(stream);
 
         Player player = null;
 

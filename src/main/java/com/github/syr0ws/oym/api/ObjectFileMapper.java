@@ -11,13 +11,13 @@ import java.io.InputStream;
 
 public interface ObjectFileMapper {
 
-    ConfigurationSection readAsSection(InputStream stream) throws NodeParsingException;
+    ConfigurationSection readSection(InputStream stream) throws NodeParsingException;
 
     String writeSection(ConfigurationSection section);
 
-    ObjectNode read(InputStream stream) throws NodeParsingException;
+    ObjectNode readNode(InputStream stream) throws NodeParsingException;
 
-    String write(ObjectNode node);
+    String writeNode(ObjectNode node);
 
     TypeAdapterFactory getTypeAdapterFactory();
 
