@@ -26,17 +26,17 @@ public class NodeSection implements ConfigurationSection {
 
     @Override
     public String getString(@NotNull String path, String defaultValue) {
-        return null;
+        return this.getValueSilent(path, this.node, String.class, defaultValue);
     }
 
     @Override
     public boolean getBoolean(@NotNull String path) throws ConfigurationSectionException {
-        return false;
+        return this.getValue(path, this.node, Boolean.class);
     }
 
     @Override
     public boolean getBoolean(@NotNull String path, boolean defaultValue) {
-        return false;
+        return this.getValueSilent(path, this.node, Boolean.class, defaultValue);
     }
 
     @Override
@@ -46,37 +46,37 @@ public class NodeSection implements ConfigurationSection {
 
     @Override
     public int getInt(@NotNull String path, int defaultValue) {
-        return 0;
+        return this.getValueSilent(path, this.node, Integer.class, defaultValue);
     }
 
     @Override
     public long getLong(@NotNull String path) throws ConfigurationSectionException {
-        return 0;
+        return this.getValue(path, this.node, Long.class);
     }
 
     @Override
     public long getLong(@NotNull String path, long defaultValue) {
-        return 0;
+        return this.getValueSilent(path, this.node, Long.class, defaultValue);
     }
 
     @Override
     public float getFloat(@NotNull String path) throws ConfigurationSectionException {
-        return 0;
+        return this.getValue(path, this.node, Float.class);
     }
 
     @Override
     public float getFloat(@NotNull String path, float defaultValue) {
-        return 0;
+        return this.getValueSilent(path, this.node, Float.class, defaultValue);
     }
 
     @Override
     public double getDouble(@NotNull String path) throws ConfigurationSectionException {
-        return 0;
+        return this.getValue(path, this.node, Double.class);
     }
 
     @Override
     public double getDouble(@NotNull String path, double defaultValue) {
-        return 0;
+        return this.getValueSilent(path, this.node, Double.class, defaultValue);
     }
 
     @Override
@@ -98,11 +98,8 @@ public class NodeSection implements ConfigurationSection {
 
         TypeAdapter<T> adapter = (TypeAdapter<T>) this.factory.getAdapter(value.getClass());
 
-        try {
-            this.node = (ObjectNode) adapter.write(value);
-        } catch (TypeAdaptationException exception) {
-            throw new ConfigurationSectionException(exception);
-        }
+        try { this.node = (ObjectNode) adapter.write(value);
+        } catch (TypeAdaptationException exception) { throw new ConfigurationSectionException(exception); }
     }
 
     @Override
@@ -112,11 +109,8 @@ public class NodeSection implements ConfigurationSection {
 
         TypeAdapter<T> adapter = this.factory.getAdapter(type);
 
-        try {
-            object = adapter.read(this.node);
-        } catch (TypeAdaptationException exception) {
-            throw new ConfigurationSectionException(exception);
-        }
+        try { object = adapter.read(this.node);
+        } catch (TypeAdaptationException exception) { throw new ConfigurationSectionException(exception); }
 
         return object;
     }
@@ -182,6 +176,12 @@ public class NodeSection implements ConfigurationSection {
         }
 
         return value;
+    }
+
+    private <T> T getValueSilent(String path, ObjectNode node, Class<T> type, T defaultValue) {
+
+        try { return this.getValue(path, this.node, type);
+        } catch (ConfigurationSectionException ignored) { return defaultValue; }
     }
 
     private String getKey(String path) {
