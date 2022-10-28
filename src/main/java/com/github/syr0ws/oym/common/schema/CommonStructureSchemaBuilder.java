@@ -9,7 +9,7 @@ import com.github.syr0ws.oym.api.schema.StructureSchemaBuilder;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class CommonStructureSchemaBuilder implements StructureSchemaBuilder {
@@ -19,7 +19,7 @@ public class CommonStructureSchemaBuilder implements StructureSchemaBuilder {
 
         Field[] declaredFields = type.getDeclaredFields();
 
-        Set<StructureField<?>> fields = new HashSet<>();
+        Set<StructureField<?>> fields = new LinkedHashSet<>();
 
         for(Field field : declaredFields) {
 
