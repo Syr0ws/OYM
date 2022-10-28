@@ -1,6 +1,7 @@
 name: "John"
 points: 150
 score: 5.5
+admin: true
 test:
   a: "x"
   b: "x"

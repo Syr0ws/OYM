@@ -46,6 +46,7 @@ public abstract class AbstractObjectFileMapper implements ObjectFileMapper {
 
     protected void initAdapters() {
         this.typeAdapterProviderModel.addProvider(new StringAdapterProvider());
+        this.typeAdapterProviderModel.addProvider(new BooleanAdapterProvider());
         this.typeAdapterProviderModel.addProvider(new IntegerAdapterProvider());
         this.typeAdapterProviderModel.addProvider(new DoubleAdapterProvider());
         this.typeAdapterProviderModel.addProvider(new LongAdapterProvider());
