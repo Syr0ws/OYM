@@ -2,6 +2,7 @@ package com.github.syr0ws.oym.common.adapter.provider.type.collection;
 
 import com.github.syr0ws.oym.api.adapter.TypeAdapter;
 import com.github.syr0ws.oym.api.adapter.TypeAdapterFactory;
+import com.github.syr0ws.oym.api.adapter.TypeAdapterNotFoundException;
 import com.github.syr0ws.oym.api.adapter.provider.TypeAdapterProvider;
 
 import java.util.Collection;
@@ -17,7 +18,10 @@ public abstract class AbstractCollectionAdapterProvider<E, T extends Collection<
         if(generics.length != 1)
             throw new IllegalArgumentException("One generic type must be specified.");
 
-        TypeAdapter<E> genericAdapter = (TypeAdapter<E>) factory.getAdapter(generics[0]);
+        TypeAdapter<E> genericAdapter;
+
+        try { genericAdapter = (TypeAdapter<E>) factory.getAdapter(generics[0]);
+        } catch (TypeAdapterNotFoundException e) { throw new RuntimeException(e); }
 
         return this.getAdapter(genericAdapter);
     }

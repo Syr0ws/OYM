@@ -3,6 +3,7 @@ package com.github.syr0ws.oym.common.section;
 import com.github.syr0ws.oym.api.adapter.TypeAdaptationException;
 import com.github.syr0ws.oym.api.adapter.TypeAdapter;
 import com.github.syr0ws.oym.api.adapter.TypeAdapterFactory;
+import com.github.syr0ws.oym.api.adapter.TypeAdapterNotFoundException;
 import com.github.syr0ws.oym.api.node.Node;
 import com.github.syr0ws.oym.api.node.ObjectNode;
 import com.github.syr0ws.oym.api.section.ConfigurationSection;
@@ -60,16 +61,6 @@ public class NodeSection implements ConfigurationSection {
     }
 
     @Override
-    public float getFloat(@NotNull String path) throws ConfigurationSectionException {
-        return this.getValue(path, this.node, Float.class);
-    }
-
-    @Override
-    public float getFloat(@NotNull String path, float defaultValue) {
-        return this.getValueSilent(path, this.node, Float.class, defaultValue);
-    }
-
-    @Override
     public double getDouble(@NotNull String path) throws ConfigurationSectionException {
         return this.getValue(path, this.node, Double.class);
     }
@@ -96,7 +87,10 @@ public class NodeSection implements ConfigurationSection {
     @SuppressWarnings("unchecked")
     public <T> void set(@NotNull T value) throws ConfigurationSectionException {
 
-        TypeAdapter<T> adapter = (TypeAdapter<T>) this.factory.getAdapter(value.getClass());
+        TypeAdapter<T> adapter;
+
+        try { adapter = (TypeAdapter<T>) this.factory.getAdapter(value.getClass());
+        } catch (TypeAdapterNotFoundException exception) { throw new ConfigurationSectionException(exception); }
 
         try { this.node = (ObjectNode) adapter.write(value);
         } catch (TypeAdaptationException exception) { throw new ConfigurationSectionException(exception); }
@@ -107,7 +101,10 @@ public class NodeSection implements ConfigurationSection {
 
         T object;
 
-        TypeAdapter<T> adapter = this.factory.getAdapter(type);
+        TypeAdapter<T> adapter;
+
+        try { adapter = this.factory.getAdapter(type);
+        } catch (TypeAdapterNotFoundException exception) { throw new RuntimeException(exception); }
 
         try { object = adapter.read(this.node);
         } catch (TypeAdaptationException exception) { throw new ConfigurationSectionException(exception); }
@@ -165,7 +162,10 @@ public class NodeSection implements ConfigurationSection {
 
         Node propertyNode = parent.getProperty(leaf);
 
-        TypeAdapter<T> adapter = this.factory.getAdapter(type);
+        TypeAdapter<T> adapter;
+
+        try { adapter = this.factory.getAdapter(type);
+        } catch (TypeAdapterNotFoundException exception) { throw new ConfigurationSectionException(exception); }
 
         T value;
 

@@ -2,6 +2,7 @@ package com.github.syr0ws.oym.common.adapter;
 
 import com.github.syr0ws.oym.api.adapter.TypeAdapter;
 import com.github.syr0ws.oym.api.adapter.TypeAdapterFactory;
+import com.github.syr0ws.oym.api.adapter.TypeAdapterNotFoundException;
 import com.github.syr0ws.oym.api.adapter.provider.TypeAdapterProvider;
 import com.github.syr0ws.oym.api.adapter.provider.TypeAdapterProviderModel;
 import com.github.syr0ws.oym.api.instance.InstanceProviderService;
@@ -27,14 +28,15 @@ public class TypeAdapterFactoryProvider implements TypeAdapterFactory {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> TypeAdapter<T> getAdapter(Class<T> type, Class<?>... generics) {
+    public <T> TypeAdapter<T> getAdapter(Class<T> type, Class<?>... generics) throws TypeAdapterNotFoundException {
 
         Optional<? extends TypeAdapterProvider<?>> optional;
 
         Class<?> unknownType = type;
+        boolean primitive = PrimitiveUtil.isPrimitive(type);
 
         // Instructions specific to the type.
-        if(PrimitiveUtil.isPrimitive(type)) {
+        if(primitive) {
 
             unknownType = PrimitiveUtil.getWrapper(type);
 
@@ -47,8 +49,13 @@ public class TypeAdapterFactoryProvider implements TypeAdapterFactory {
         optional = this.typeAdapterProviderModel.getAdapter(unknownType);
 
         // No specific TypeAdapterProvider found.
-        if(!optional.isPresent())
+        if(!optional.isPresent()) {
+
+            if(primitive)
+                throw new TypeAdapterNotFoundException(String.format("Primitive '%s' not supported.", type.getSimpleName()));
+
             return new ObjectAdapter<>(this.schemaBuilder, this.instanceProviderService, this, type);
+        }
 
         TypeAdapterProvider<T> provider = (TypeAdapterProvider<T>) optional.get();
 

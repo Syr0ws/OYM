@@ -3,6 +3,7 @@ package com.github.syr0ws.oym.common.adapter.type;
 import com.github.syr0ws.oym.api.adapter.TypeAdaptationException;
 import com.github.syr0ws.oym.api.adapter.TypeAdapter;
 import com.github.syr0ws.oym.api.adapter.TypeAdapterFactory;
+import com.github.syr0ws.oym.api.adapter.TypeAdapterNotFoundException;
 import com.github.syr0ws.oym.api.instance.InstanceException;
 import com.github.syr0ws.oym.api.node.ObjectNode;
 import com.github.syr0ws.oym.api.schema.StructureField;
@@ -79,7 +80,10 @@ public class ObjectAdapter<T> implements TypeAdapter<T> {
         } catch (Exception exception) { throw new TypeAdaptationException(String.format("Cannot retrieve generic types of type '%s'.", type.getName()), exception); }
 
         // Prise en compte génériques.
-        TypeAdapter<S> adapter = this.factory.getAdapter(type, generics);
+        TypeAdapter<S> adapter;
+
+        try { adapter = this.factory.getAdapter(type, generics);
+        } catch (TypeAdapterNotFoundException exception) { throw new TypeAdaptationException(exception); }
 
         Node internalNode = object.getProperty(field.getKey());
 
@@ -99,7 +103,10 @@ public class ObjectAdapter<T> implements TypeAdapter<T> {
         } catch (Exception exception) { throw new TypeAdaptationException(String.format("Cannot retrieve generic types of type '%s'.", type.getName()), exception); }
 
         // Prise en compte génériques.
-        TypeAdapter<S> adapter = this.factory.getAdapter(type, generics);
+        TypeAdapter<S> adapter;
+
+        try { adapter = this.factory.getAdapter(type, generics);
+        } catch (TypeAdapterNotFoundException exception) { throw new RuntimeException(exception); }
 
         S value;
 

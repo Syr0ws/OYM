@@ -25,6 +25,9 @@ public class Player {
     @Key(comments = {"admin"})
     private boolean admin;
 
+    @Key
+    private float f;
+
     @KeySetter(field = "name")
     public void setName(String name) {
         System.out.println(name);

@@ -2,6 +2,7 @@ package com.github.syr0ws.oym.common.adapter.provider.type.map;
 
 import com.github.syr0ws.oym.api.adapter.TypeAdapter;
 import com.github.syr0ws.oym.api.adapter.TypeAdapterFactory;
+import com.github.syr0ws.oym.api.adapter.TypeAdapterNotFoundException;
 import com.github.syr0ws.oym.api.adapter.provider.TypeAdapterProvider;
 
 import java.util.Map;
@@ -17,7 +18,10 @@ public abstract class AbstractMapAdapterProvider<V, T extends Map<String, V>> im
         if(generics.length != 2)
             throw new IllegalArgumentException("Two generic types must be specified.");
 
-        TypeAdapter<V> valueAdapter = (TypeAdapter<V>) factory.getAdapter(generics[1]);
+        TypeAdapter<V> valueAdapter;
+
+        try { valueAdapter = (TypeAdapter<V>) factory.getAdapter(generics[1]);
+        } catch (TypeAdapterNotFoundException exception) { throw new RuntimeException(exception); }
 
         return this.getAdapter(valueAdapter);
     }

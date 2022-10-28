@@ -21,10 +21,6 @@ public interface ConfigurationSection {
 
     long getLong(@NotNull String path, long defaultValue);
 
-    float getFloat(@NotNull String path) throws ConfigurationSectionException;
-
-    float getFloat(@NotNull String path, float defaultValue);
-
     double getDouble(@NotNull String path) throws ConfigurationSectionException;
 
     double getDouble(@NotNull String path, double defaultValue);
