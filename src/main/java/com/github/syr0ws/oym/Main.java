@@ -12,11 +12,6 @@ public class Main {
 
     public static void main(String[] args) throws NodeParsingException, ConfigurationSectionException {
 
-        /*
-        Une méthode d'une ConfigurationSection sans default value throw une exception
-        si la clé n'existe pas.
-         */
-
         InputStream stream = Main.class.getClassLoader().getResourceAsStream("config.yml");
 
         ObjectFileMapper mapper = new ObjectYamlMapper();
@@ -40,6 +35,6 @@ public class Main {
 
         ConfigurationSection teamSection = section.getSection("team");
 
-        System.out.println(section.hasKey("team.members"));
+        System.out.println(teamSection);
     }
 }
