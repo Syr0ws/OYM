@@ -22,6 +22,9 @@ public class Player {
     @Key(comments = {"score"})
     private double score;
 
+    @Key(comments = {"admin"})
+    private boolean admin;
+
     @KeySetter(field = "name")
     public void setName(String name) {
         System.out.println(name);
