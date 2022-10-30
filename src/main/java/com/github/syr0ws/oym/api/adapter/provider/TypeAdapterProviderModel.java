@@ -5,6 +5,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.Optional;
 
+/**
+ * Stores all the providers which can be used during the mapping process.
+ */
 public interface TypeAdapterProviderModel {
 
     /**

@@ -2,6 +2,9 @@ package com.github.syr0ws.oym.api.adapter;
 
 import com.github.syr0ws.oym.api.node.Node;
 
+/**
+ * This interface adapts an object of type T from and to nodes.
+ */
 public interface TypeAdapter<T> {
 
     /**
