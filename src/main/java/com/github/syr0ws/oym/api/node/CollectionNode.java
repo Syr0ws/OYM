@@ -7,6 +7,9 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.stream.Stream;
 
+/**
+ * Represents a collection.
+ */
 public class CollectionNode extends AbstractNode implements Iterable<Node> {
 
     private final Collection<Node> nodes;

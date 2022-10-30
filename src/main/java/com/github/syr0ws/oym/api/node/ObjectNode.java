@@ -6,6 +6,9 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Represents an object that is not scalar nor a collection.
+ */
 public class ObjectNode extends AbstractNode implements Node {
 
     private final Map<String, Node> nodes;

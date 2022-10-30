@@ -3,6 +3,9 @@ package com.github.syr0ws.oym.api.node;
 import java.util.Collection;
 import java.util.Map;
 
+/**
+ * Represents a scalar object like a primitive (or its wrapper) or a String.
+ */
 public class ScalarNode extends AbstractNode {
 
     private final Object object;
