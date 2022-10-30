@@ -6,8 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Set a method of a class as a setter to be used to change the value
- * of a specific field.
+ * Set a method of a class as a setter to be used to change the value of a specific field.
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

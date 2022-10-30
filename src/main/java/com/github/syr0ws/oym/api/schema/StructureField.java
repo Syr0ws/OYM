@@ -6,6 +6,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
+/**
+ * Represents a mappable field of a class. This field is necessarily annotated with @Key.
+ */
 public class StructureField<T> {
 
     private final String key;
@@ -23,30 +26,57 @@ public class StructureField<T> {
         this.setter = setter;
     }
 
+    /**
+     * @return the name of the field.
+     */
     public String getKey() {
         return this.key;
     }
 
+    /**
+     * @return the type of the field.
+     */
     public Class<T> getType() {
         return this.type;
     }
 
+    /**
+     * @return the comments associated with the field.
+     */
     public String[] getComments() {
         return this.comments;
     }
 
+    /**
+     * @return true if the field has associated comments or else false.
+     */
     public boolean hasComments() {
         return this.comments.length != 0;
     }
 
+    /**
+     * @return the class field.
+     */
     public Field getField() {
         return this.field;
     }
 
+    /**
+     * If the field has a getter annotated with @KeyGetter, it can be retrieved using this method. If this
+     * optional is not empty, the getter will be used to retrieve the value of the field. Otherwise, the
+     * field will be accessed directly.
+     * @return an optional.
+     */
     public Optional<Method> getGetter() {
         return Optional.ofNullable(this.getter);
     }
 
+    /**
+     * If the field has a setter annotated with @KeySetter, it can be retrieved using this method. If this
+     * optional is not empty, the setter will be used to assign a value to the field. Otherwise, the field
+     * will be accessed directly.
+     * @return an optional.
+     */
     public Optional<Method> getSetter() {
         return Optional.ofNullable(this.setter);
     }
