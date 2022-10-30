@@ -23,16 +23,18 @@ public class CommonStructureSchemaBuilder implements StructureSchemaBuilder {
 
         for(Field field : declaredFields) {
 
+            // Field must not be used.
             if(!field.isAnnotationPresent(Key.class)) continue;
 
             Key key = field.getAnnotation(Key.class);
 
+            // Using the field name or a custom name if it is specified.
             String keyName = key.name().isEmpty() ? field.getName() : key.name();
             Class<?> fieldType = field.getType();
             String[] comments = key.comments();
 
-            Method getter = this.findGetter(type, field);
-            Method setter = this.findSetter(type, field);
+            Method getter = this.findGetter(type, field); // Retrieving the field getter if it exists and is annotated.
+            Method setter = this.findSetter(type, field); // Retrieving the field setter if it exists and is annotated.
 
             StructureField<?> structureField = new StructureField<>(keyName, comments, fieldType, field, getter, setter);
 
