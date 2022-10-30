@@ -21,6 +21,8 @@ import com.github.syr0ws.oym.api.adapter.TypeAdapter;
 import com.github.syr0ws.oym.api.adapter.TypeAdapterFactory;
 import com.github.syr0ws.oym.api.adapter.TypeAdapterNotFoundException;
 import com.github.syr0ws.oym.api.instance.InstanceException;
+import com.github.syr0ws.oym.api.instance.InstanceProviderService;
+import com.github.syr0ws.oym.api.node.Node;
 import com.github.syr0ws.oym.api.node.ObjectNode;
 import com.github.syr0ws.oym.api.schema.StructureField;
 import com.github.syr0ws.oym.api.schema.StructureSchema;
@@ -28,8 +30,6 @@ import com.github.syr0ws.oym.api.schema.StructureSchemaBuilder;
 import com.github.syr0ws.oym.common.util.GenericUtil;
 import com.github.syr0ws.oym.common.util.NodeUtil;
 import com.github.syr0ws.oym.common.util.ReflectionUtil;
-import com.github.syr0ws.oym.api.node.Node;
-import com.github.syr0ws.oym.api.instance.InstanceProviderService;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;

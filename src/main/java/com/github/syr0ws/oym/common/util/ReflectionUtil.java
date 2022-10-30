@@ -16,7 +16,6 @@
 
 package com.github.syr0ws.oym.common.util;
 
-import com.github.syr0ws.oym.api.adapter.TypeAdaptationException;
 import com.github.syr0ws.oym.api.schema.StructureField;
 
 import java.lang.reflect.Field;

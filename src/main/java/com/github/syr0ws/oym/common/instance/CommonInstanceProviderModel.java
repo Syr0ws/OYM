@@ -19,7 +19,10 @@ package com.github.syr0ws.oym.common.instance;
 import com.github.syr0ws.oym.api.instance.InstanceProvider;
 import com.github.syr0ws.oym.api.instance.InstanceProviderModel;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 public class CommonInstanceProviderModel implements InstanceProviderModel {
 

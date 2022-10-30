@@ -16,12 +16,12 @@
 
 package com.github.syr0ws.oym.common.node.parser;
 
-import com.github.syr0ws.oym.api.node.parser.NodeParser;
-import com.github.syr0ws.oym.api.node.parser.NodeParsingException;
 import com.github.syr0ws.oym.api.node.CollectionNode;
-import com.github.syr0ws.oym.api.node.ScalarNode;
 import com.github.syr0ws.oym.api.node.Node;
 import com.github.syr0ws.oym.api.node.ObjectNode;
+import com.github.syr0ws.oym.api.node.ScalarNode;
+import com.github.syr0ws.oym.api.node.parser.NodeParser;
+import com.github.syr0ws.oym.api.node.parser.NodeParsingException;
 import com.github.syr0ws.oym.common.util.TypeUtil;
 
 import java.util.ArrayList;
