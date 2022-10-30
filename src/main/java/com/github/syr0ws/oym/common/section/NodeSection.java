@@ -104,7 +104,7 @@ public class NodeSection implements ConfigurationSection {
         TypeAdapter<T> adapter;
 
         try { adapter = this.factory.getAdapter(type);
-        } catch (TypeAdapterNotFoundException exception) { throw new RuntimeException(exception); }
+        } catch (TypeAdapterNotFoundException exception) { throw new ConfigurationSectionException(exception); }
 
         try { object = adapter.read(this.node);
         } catch (TypeAdaptationException exception) { throw new ConfigurationSectionException(exception); }
