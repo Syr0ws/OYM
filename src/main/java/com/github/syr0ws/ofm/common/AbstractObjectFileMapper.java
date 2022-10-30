@@ -29,6 +29,7 @@ import com.github.syr0ws.ofm.common.adapter.TypeAdapterFactoryProvider;
 import com.github.syr0ws.ofm.common.adapter.provider.CommonTypeAdapterProviderModel;
 import com.github.syr0ws.ofm.common.adapter.provider.type.*;
 import com.github.syr0ws.ofm.common.adapter.provider.type.collection.ArrayListAdapterProvider;
+import com.github.syr0ws.ofm.common.adapter.provider.type.collection.HashSetAdapterProvider;
 import com.github.syr0ws.ofm.common.adapter.provider.type.collection.ListAdapterProvider;
 import com.github.syr0ws.ofm.common.adapter.provider.type.collection.SetAdapterProvider;
 import com.github.syr0ws.ofm.common.adapter.provider.type.map.HashMapAdapterProvider;
@@ -66,11 +67,15 @@ public abstract class AbstractObjectFileMapper implements ObjectFileMapper {
         this.typeAdapterProviderModel.addProvider(new IntegerAdapterProvider());
         this.typeAdapterProviderModel.addProvider(new DoubleAdapterProvider());
         this.typeAdapterProviderModel.addProvider(new LongAdapterProvider());
+
         this.typeAdapterProviderModel.addProvider(new UUIDAdapterProvider());
         this.typeAdapterProviderModel.addProvider(new EnumTypeAdapterProvider<>());
+
         this.typeAdapterProviderModel.addProvider(new ListAdapterProvider<>());
         this.typeAdapterProviderModel.addProvider(new ArrayListAdapterProvider<>());
         this.typeAdapterProviderModel.addProvider(new SetAdapterProvider<>());
+        this.typeAdapterProviderModel.addProvider(new HashSetAdapterProvider<>());
+
         this.typeAdapterProviderModel.addProvider(new HashMapAdapterProvider<>());
         this.typeAdapterProviderModel.addProvider(new MapAdapterProvider<>());
         this.typeAdapterProviderModel.addProvider(new HashMapAdapterProvider<>());
