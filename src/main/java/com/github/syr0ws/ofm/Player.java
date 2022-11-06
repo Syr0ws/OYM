@@ -16,32 +16,32 @@
 
 package com.github.syr0ws.ofm;
 
-import com.github.syr0ws.ofm.api.annotation.Key;
-import com.github.syr0ws.ofm.api.annotation.KeySetter;
+import com.github.syr0ws.ofm.api.annotation.Property;
+import com.github.syr0ws.ofm.api.annotation.PropertySetter;
 
 import java.util.Map;
 
 public class Player {
 
-    @Key(comments = {"name"})
+    @Property(comments = {"name"})
     private String name;
 
-    @Key(comments = {"points"})
+    @Property(comments = {"points"})
     private int points;
 
-    @Key(comments = {"team"})
+    @Property(comments = {"team"})
     private Team team;
 
-    @Key(comments = {"test"})
+    @Property(comments = {"test"})
     private Map<String, String> test;
 
-    @Key(comments = {"score"})
+    @Property(comments = {"score"})
     private double score;
 
-    @Key(comments = {"admin"})
+    @Property(comments = {"admin"})
     private boolean admin;
 
-    @KeySetter(field = "name")
+    @PropertySetter(field = "name")
     public void setName(String name) {
         System.out.println(name);
         this.name = name;

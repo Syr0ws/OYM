@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface KeySetter {
+public @interface PropertySetter {
 
     /**
      * The name of the corresponding field in the class.

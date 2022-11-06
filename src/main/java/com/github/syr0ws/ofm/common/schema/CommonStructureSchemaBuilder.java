@@ -16,9 +16,9 @@
 
 package com.github.syr0ws.ofm.common.schema;
 
-import com.github.syr0ws.ofm.api.annotation.Key;
-import com.github.syr0ws.ofm.api.annotation.KeyGetter;
-import com.github.syr0ws.ofm.api.annotation.KeySetter;
+import com.github.syr0ws.ofm.api.annotation.Property;
+import com.github.syr0ws.ofm.api.annotation.PropertyGetter;
+import com.github.syr0ws.ofm.api.annotation.PropertySetter;
 import com.github.syr0ws.ofm.api.schema.StructureField;
 import com.github.syr0ws.ofm.api.schema.StructureSchema;
 import com.github.syr0ws.ofm.api.schema.StructureSchemaBuilder;
@@ -40,14 +40,14 @@ public class CommonStructureSchemaBuilder implements StructureSchemaBuilder {
         for(Field field : declaredFields) {
 
             // Field must not be used.
-            if(!field.isAnnotationPresent(Key.class)) continue;
+            if(!field.isAnnotationPresent(Property.class)) continue;
 
-            Key key = field.getAnnotation(Key.class);
+            Property property = field.getAnnotation(Property.class);
 
             // Using the field name or a custom name if it is specified.
-            String keyName = key.name().isEmpty() ? field.getName() : key.name();
+            String keyName = property.name().isEmpty() ? field.getName() : property.name();
             Class<?> fieldType = field.getType();
-            String[] comments = key.comments();
+            String[] comments = property.comments();
 
             Method getter = this.findGetter(type, field); // Retrieving the field getter if it exists and is annotated.
             Method setter = this.findSetter(type, field); // Retrieving the field setter if it exists and is annotated.
@@ -66,9 +66,9 @@ public class CommonStructureSchemaBuilder implements StructureSchemaBuilder {
 
         for(Method method : type.getDeclaredMethods()) {
 
-            if(!method.isAnnotationPresent(KeyGetter.class)) continue;
+            if(!method.isAnnotationPresent(PropertyGetter.class)) continue;
 
-            KeyGetter getter = method.getAnnotation(KeyGetter.class);
+            PropertyGetter getter = method.getAnnotation(PropertyGetter.class);
 
             if(getter.field().equals(name)) return method;
         }
@@ -82,9 +82,9 @@ public class CommonStructureSchemaBuilder implements StructureSchemaBuilder {
 
         for(Method method : type.getDeclaredMethods()) {
 
-            if(!method.isAnnotationPresent(KeySetter.class)) continue;
+            if(!method.isAnnotationPresent(PropertySetter.class)) continue;
 
-            KeySetter getter = method.getAnnotation(KeySetter.class);
+            PropertySetter getter = method.getAnnotation(PropertySetter.class);
 
             if(getter.field().equals(name)) return method;
         }

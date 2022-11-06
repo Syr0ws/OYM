@@ -16,19 +16,19 @@
 
 package com.github.syr0ws.ofm;
 
-import com.github.syr0ws.ofm.api.annotation.Key;
+import com.github.syr0ws.ofm.api.annotation.Property;
 
 import java.util.ArrayList;
 
 public class TeamImpl implements Team {
 
-    @Key
+    @Property
     private String name;
 
-    @Key
+    @Property
     private TeamColor color;
 
-    @Key
+    @Property
     private ArrayList<String> members;
 
     @Override

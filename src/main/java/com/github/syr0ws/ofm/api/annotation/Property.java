@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Key {
+public @interface Property {
 
     /**
      * Set a custom name for the annotated field which will be used as key when serializing
