@@ -37,7 +37,7 @@ public class Main {
 
         Player player = null;
 
-        try { player = section.get(Player.class);
+        try { player = section.getAsObject(Player.class);
         } catch (ConfigurationSectionException exception) { exception.printStackTrace(); }
 
         System.out.println(player);

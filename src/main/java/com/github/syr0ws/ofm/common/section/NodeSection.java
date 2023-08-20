@@ -113,7 +113,7 @@ public class NodeSection implements ConfigurationSection {
     }
 
     @Override
-    public <T> T get(@NotNull Class<T> type) throws ConfigurationSectionException {
+    public <T> T getAsObject(@NotNull Class<T> type) throws ConfigurationSectionException {
 
         T object;
 

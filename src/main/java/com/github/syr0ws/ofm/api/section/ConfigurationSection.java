@@ -127,7 +127,7 @@ public interface ConfigurationSection {
      * @return Converted object.
      * @throws ConfigurationSectionException If an error occurs during the conversion.
      */
-    <T> T get(@NotNull Class<T> type) throws ConfigurationSectionException;
+    <T> T getAsObject(@NotNull Class<T> type) throws ConfigurationSectionException;
 
     /**
      * Check if a value is set for the given path.
