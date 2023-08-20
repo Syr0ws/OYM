@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 
 public class YamlMapper implements Mapper<MappingNode> {
 
-    private static final Representer DEFAULT_REPRESENTER = new Representer();
+    private static final Representer DEFAULT_REPRESENTER = new Representer(new DumperOptions());
 
     static {
         DEFAULT_REPRESENTER.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
