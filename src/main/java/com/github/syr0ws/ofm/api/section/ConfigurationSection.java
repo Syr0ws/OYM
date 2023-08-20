@@ -107,6 +107,23 @@ public interface ConfigurationSection {
     double getDouble(@NotNull String path, double defaultValue);
 
     /**
+     * Get an element (object or primitive) by path.
+     * @param path Path to the element to get.
+     * @return Requested element.
+     * @throws ConfigurationSectionException If the path does not exist or an error occurred.
+     */
+    <T> T get(@NotNull String path, Class<T> type) throws ConfigurationSectionException;
+
+    /**
+     * Get an element (object or primitive) by path.
+     * If the path doesn't exist or an error occurred, a default value is returned.
+     * @param path Path to the element to get.
+     * @param defaultValue Default value to return if the path doesn't exist or if an error occurred.
+     * @return Requested element.
+     */
+    <T> T get(@NotNull String path, Class<T> type, T defaultValue);
+
+    /**
      * Get a deeper ConfigurationSection by path.
      * @param path Path to the ConfigurationSection to get.
      * @return Requested ConfigurationSection.

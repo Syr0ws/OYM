@@ -87,6 +87,16 @@ public class NodeSection implements ConfigurationSection {
     }
 
     @Override
+    public <T> T get(@NotNull String path, Class<T> type) throws ConfigurationSectionException {
+        return this.getValue(path, this.node, type);
+    }
+
+    @Override
+    public <T> T get(@NotNull String path, Class<T> type, T defaultValue) {
+        return this.getValueSilent(path, this.node, type, defaultValue);
+    }
+
+    @Override
     public ConfigurationSection getSection(@NotNull String path) throws ConfigurationSectionException {
 
         ObjectNode parent = this.getParentNode(this.node, path);
