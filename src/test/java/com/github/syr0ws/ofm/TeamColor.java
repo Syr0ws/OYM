@@ -18,5 +18,5 @@ package com.github.syr0ws.ofm;
 
 public enum TeamColor {
 
-    BLUE
+    BLUE, RED
 }

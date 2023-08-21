@@ -2,9 +2,7 @@ name: "John"
 points: 150
 score: 5.5
 admin: true
-test:
-  a: "x"
-  b: "x"
+time: 1692562524045
 team:
   name: "Bleu"
   color: "BLUE"

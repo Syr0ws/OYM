@@ -19,6 +19,7 @@ package com.github.syr0ws.ofm;
 import com.github.syr0ws.ofm.api.annotation.Property;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TeamImpl implements Team {
 
@@ -30,6 +31,28 @@ public class TeamImpl implements Team {
 
     @Property
     private ArrayList<String> members;
+
+    public TeamImpl() {
+    }
+
+    public TeamImpl(String name, TeamColor color, ArrayList<String> members) {
+        this.name = name;
+        this.color = color;
+        this.members = members;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TeamImpl team = (TeamImpl) o;
+        return Objects.equals(name, team.name) && color == team.color && Objects.equals(members, team.members);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, color, members);
+    }
 
     @Override
     public String toString() {

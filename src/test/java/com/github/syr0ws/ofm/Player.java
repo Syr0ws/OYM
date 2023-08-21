@@ -20,6 +20,7 @@ import com.github.syr0ws.ofm.api.annotation.Property;
 import com.github.syr0ws.ofm.api.annotation.PropertySetter;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class Player {
 
@@ -31,9 +32,6 @@ public class Player {
 
     @Property(comments = {"team"})
     private Team team;
-
-    @Property(comments = {"test"})
-    private Map<String, String> test;
 
     @Property(comments = {"score"})
     private double score;
@@ -47,13 +45,36 @@ public class Player {
         this.name = name;
     }
 
+    public Player() {
+    }
+
+    public Player(String name, int points, Team team, double score, boolean admin) {
+        this.name = name;
+        this.points = points;
+        this.team = team;
+        this.score = score;
+        this.admin = admin;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return points == player.points && Double.compare(score, player.score) == 0 && admin == player.admin && Objects.equals(name, player.name) && Objects.equals(team, player.team);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, points, team, score, admin);
+    }
+
     @Override
     public String toString() {
         return "Player{" +
                 "name='" + name + '\'' +
                 ", points=" + points +
                 ", team=" + team +
-                ", test=" + test +
                 '}';
     }
 }
